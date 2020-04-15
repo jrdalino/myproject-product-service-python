@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myproject-product-service
+  labels:
+    app: myproject-product-service
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myproject-product-service
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: myproject-product-service
+    spec:
+      containers:
+      - image: 222337787619.dkr.ecr.ap-southeast-2.amazonaws.com/myproject-product-service:latest
+        imagePullPolicy: Always
+        name: myproject-product-service
+        ports:
+        - containerPort: 5000
+          protocol: TCP
+        env:
+        - name: AWS_XRAY_DAEMON_ADDRESS
+          value: xray-service.default.svc.cluster.local:2000
