@@ -106,7 +106,7 @@ def create_product(product_dict):
 				# 'productName': productName,
 				'productDescription': productDescription,
 				# 'supplier': supplier,
-				'imageUrl': imageUrl
+				'imageUrl': imageUrl,
 				'currency':  currency,
 				# 'price': price,
 				# 'category': category,
