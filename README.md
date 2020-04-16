@@ -5,11 +5,11 @@
 
 ## API Endpoints
 ```
-| HTTP METHOD | URI                                      | ACTION                       |
-|-------------|------------------------------------------|------------------------------|
-| GET         | http://[hostname]/products              | Gets all products           |
+| HTTP METHOD | URI                                    | ACTION                      |
+|-------------|----------------------------------------|-----------------------------|
+| GET         | http://[hostname]/products             | Gets all products           |
 | GET         | http://[hostname]/products/<productId> | Gets one product            |
-| POST        | http://[hostname]/products              | Creates a new product       |
+| POST        | http://[hostname]/products             | Creates a new product       |
 | PUT         | http://[hostname]/products/<productId> | Updates an existing product |
 | DELETE      | http://[hostname]/products/<productId> | Deletes a product           |
 ```
