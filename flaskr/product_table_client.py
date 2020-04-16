@@ -34,14 +34,18 @@ def get_all_products():
 	for item in response["Items"]:
 		product = {
 			'productId': item['productId'],
-			'currency': item['currency'],
+			# 'productName': item['productName'],
+			'productDescription': item['productDescription'],
+			# 'supplier': item['supplier'],
+			'imageUrl': item['imageUrl'],
+			'currency': item['currency'],			
+			# 'price': item['price'],
+			# 'category': item['category'],	
+			'rate': item['rate'],
 			'interestPaymentPeriod': item['interestPaymentPeriod'],
 			'interestPaymentDate': item['interestPaymentDate'],
-			'rate': item['rate'],
-			'productDescription': item['productDescription'],
 			'createdDate': item['createdDate'],
 			'updatedDate': item['updatedDate'],
-			'imageUrl': item['imageUrl'],
 		}
 		product_list["products"].append(product)
 	return json.dumps(product_list)
@@ -63,27 +67,35 @@ def get_product(productId):
 
 	product = {
 		'productId': item['productId'],
+		# 'productName': item['productName'],
+		'productDescription': item['productDescription'],
+		# 'supplier': item['supplier'],
+		'imageUrl': item['imageUrl'],
 		'currency': item['currency'],
+		# 'price': item['price'],
+		# 'category': item['category'],
+		'rate': item['rate'],
 		'interestPaymentPeriod': item['interestPaymentPeriod'],
 		'interestPaymentDate': item['interestPaymentDate'],
-		'rate': item['rate'],
-		'productDescription': item['productDescription'],
 		'createdDate': item['createdDate'],
 		'updatedDate': item['updatedDate'],
-		'imageUrl': item['imageUrl'],
 	}
 	return json.dumps({'product': product})
 
 def create_product(product_dict):
 	productId = product_id_generator() # str(uuid.uuid4())
+	productName = str(product_dict['productName'])
+	productDescription = str(product_dict['productDescription'])
+	# supplier str(product_dict['supplier'])
+	imageUrl = str(product_dict['imageUrl'])
 	currency = str(product_dict['currency'])
+	# price = str(product_dict['price'])
+	# category = str(product_dict['category'])
+	rate = str(product_dict['rate'])
 	interestPaymentPeriod = str(product_dict['interestPaymentPeriod'])
 	interestPaymentDate = str(product_dict['interestPaymentDate'])
-	rate = str(product_dict['rate'])
-	productDescription = str(product_dict['productDescription'])
 	createdDate = str(datetime.datetime.now().isoformat())
 	updatedDate = "1900-01-01T00:00:00.000000"
-	imageUrl = str(product_dict['imageUrl'])
 
 	dynamodb = get_db_resource()
 	table = dynamodb.Table(table_name)
@@ -91,39 +103,51 @@ def create_product(product_dict):
 		TableName=table_name,
 		Item={
 				'productId': productId,
+				# 'productName': productName,
+				'productDescription': productDescription,
+				# 'supplier': supplier,
+				'imageUrl': imageUrl
 				'currency':  currency,
+				# 'price': price,
+				# 'category': category,
+				'rate': rate,
 				'interestPaymentPeriod': interestPaymentPeriod,
 				'interestPaymentDate': interestPaymentDate,
-				'rate': rate,
-				'productDescription': productDescription,
 				'createdDate': createdDate,
-				'updatedDate': updatedDate,
-				'imageUrl': imageUrl
+				'updatedDate': updatedDate
 			}
 		)
 	# logger.info("Logger Response: ")
 	# logger.info(response)
 	product = {
 		'productId': productId,
+		# 'productName': productName,
+		'productDescription': productDescription,
+		# 'supplier': supplier,
+		'imageUrl': imageUrl,
 		'currency': currency,
+		# 'price': price,
+		# 'category': category,
+		'rate': rate,
 		'interestPaymentPeriod': interestPaymentPeriod,
 		'interestPaymentDate': interestPaymentDate,
-		'rate': rate,
-		'productDescription': productDescription,
 		'createdDate': createdDate,
 		'updatedDate': updatedDate,
-		'imageUrl': imageUrl,
 	}
 	return json.dumps({'product': product})
 
 def update_product(productId, product_dict):
+	# productName = str(product_dict['productName'])
+	productDescription = str(product_dict['productDescription'])
+	# supplier = str(product_dict['supplier'])
+	imageUrl = str(product_dict['imageUrl'])
 	currency = str(product_dict['currency'])
+	# price = str(product_dict['price'])
+	# category = str(product_dict['category'])
+	rate = str(product_dict['rate'])
 	interestPaymentPeriod = str(product_dict['interestPaymentPeriod'])
 	interestPaymentDate = str(product_dict['interestPaymentDate'])
-	rate = str(product_dict['rate'])
-	productDescription = str(product_dict['productDescription'])
 	updatedDate = str(datetime.datetime.now().isoformat())
-	imageUrl = str(product_dict['imageUrl'])
 
 	dynamodb = get_db_resource()
 	table = dynamodb.Table(table_name)
@@ -131,27 +155,31 @@ def update_product(productId, product_dict):
 		Key={
 			'productId': productId
 		},
-		UpdateExpression="""SET currency = :p_currency,
+		UpdateExpression="""SET productDescription = :p_productDescription,
+								imageUrl = :p_imageUrl,
+								currency = :p_currency,
+								rate = :p_rate,
 								interestPaymentPeriod = :p_interestPaymentPeriod,
 								interestPaymentDate = :p_interestPaymentDate,
-								rate = :p_rate,
-								productDescription = :p_productDescription,
-								updatedDate = :p_updatedDate,
-								imageUrl = :p_imageUrl
+								updatedDate = :p_updatedDate
 								""",
 		ExpressionAttributeValues={
+			# p_productName': productName,
+			':p_productDescription': productDescription,
+			# p_supplier': supplier,
+			':p_imageUrl': imageUrl,
 			':p_currency': currency,
-			':p_interestPaymentPeriod' : interestPaymentPeriod,
-			':p_interestPaymentDate':  interestPaymentDate,
+			# ':p_price': price,
+			# ':p_category': category,
 			':p_rate': rate,
-			':p_productDescription': birtproductDescriptionhDate,
-			':p_updatedDate':  updatedDate,
-			':p_imageUrl':  imageUrl
+			':p_interestPaymentPeriod': interestPaymentPeriod,
+			':p_interestPaymentDate': interestPaymentDate,
+			':p_updatedDate': updatedDate
 		},
 		ReturnValues="ALL_NEW"
 	)
-	logger.info("Logger Response: ")
-	logger.info(response)
+	# logger.info("Logger Response: ")
+	# logger.info(response)
 
 	if 'Item' not in response:
 		return json.dumps({'error': 'Product does not exist'})
@@ -159,14 +187,18 @@ def update_product(productId, product_dict):
 	updated = response['Attributes']
 	product = {
 		'productId': updated['productId'],
+		# 'productName': updated['productName'],
+		'productDescription': updated['productDescription'],
+		# 'supplier': updated['supplier'],
+		'imageUrl': updated['imageUrl'],
 		'currency': updated['currency'],
+		# 'price': updated['price'],
+		# 'category': updated['category'],
+		'rate': updated['rate'],		
 		'interestPaymentPeriod': updated['interestPaymentPeriod'],
 		'interestPaymentDate': updated['interestPaymentDate'],
-		'rate': updated['rate'],
-		'productDescription': updated['productDescription'],
 		'createdDate': updated['createdDate'],
 		'updatedDate': updated['updatedDate'],
-		'imageUrl': updated['imageUrl'],
 	}
 	return json.dumps({'product': product})
 
@@ -179,9 +211,8 @@ def delete_product(productId):
 			'productId': productId
 		}
 	)
-
-	logger.info("Logger Response: ")
-	logger.info(response)
+	# logger.info("Logger Response: ")
+	# logger.info(response)
 
 	if 'Item' not in response:
 		return json.dumps({'error': 'product does not exist'})
@@ -214,7 +245,7 @@ def product_id_generator():
 	now = datetime.datetime.now()
 	max_value = get_max_value('productId')
 
-	if max_value: 
+	if max_value:
 		# get latest id from db and increment
 		# get last 4 digits
 		last_digits = str(max_value)[-4:]

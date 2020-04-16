@@ -1,4 +1,3 @@
-
 import uuid
 from flask import Blueprint
 from flask import Flask, json, Response, request, abort

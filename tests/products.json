@@ -1,0 +1,35 @@
+[
+  {
+    "productId": "VBCA0001",
+    "productDescription": "Product A",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/PICA.jpg/600px-PICA.jpg",
+    "currency": "CNY",
+    "rate": "0.35",
+    "interestPaymentPeriod": "By quarter",
+    "interestPaymentDate": "21st of Mar/Jun/Sep/Dec",
+    "createdDate": "1900-01-01T00:00:00.000000",
+    "updatedDate": "1900-01-01T00:00:00.000000"
+  },
+  {
+    "productId": "VBCA0002",
+    "productDescription": "Product B",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/PICA.jpg/600px-PICA.jpg",
+    "currency": "GBP",
+    "rate": "0.35",
+    "interestPaymentPeriod": "By quarter",
+    "interestPaymentDate": "21st of Mar/Jun/Sep/Dec",
+    "createdDate": "1900-01-01T00:00:00.000000",
+    "updatedDate": "1900-01-01T00:00:00.000000"
+  },
+  {
+    "productId": "VBCA0003",
+    "productDescription": "Product C",
+    "imageUrl": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/PICA.jpg/600px-PICA.jpg",
+    "currency": "HKD",
+    "rate": "0.35",
+    "interestPaymentPeriod": "By quarter",
+    "interestPaymentDate": "21st of Mar/Jun/Sep/Dec",
+    "createdDate": "1900-01-01T00:00:00.000000",
+    "updatedDate": "1900-01-01T00:00:00.000000"
+  }
+]
